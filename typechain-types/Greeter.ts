@@ -97,7 +97,9 @@ export interface Greeter extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    call(overrides?: CallOverrides): Promise<[string]>;
+    call(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     getAbiEncodeSignature(
       param: string,
@@ -127,7 +129,9 @@ export interface Greeter extends BaseContract {
     ): Promise<ContractTransaction>;
   };
 
-  call(overrides?: CallOverrides): Promise<string>;
+  call(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   getAbiEncodeSignature(
     param: string,
@@ -154,7 +158,9 @@ export interface Greeter extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    call(overrides?: CallOverrides): Promise<string>;
+    call(
+      overrides?: CallOverrides
+    ): Promise<[boolean, string] & { success: boolean }>;
 
     getAbiEncodeSignature(
       param: string,
@@ -184,7 +190,9 @@ export interface Greeter extends BaseContract {
   filters: {};
 
   estimateGas: {
-    call(overrides?: CallOverrides): Promise<BigNumber>;
+    call(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     getAbiEncodeSignature(
       param: string,
@@ -215,7 +223,9 @@ export interface Greeter extends BaseContract {
   };
 
   populateTransaction: {
-    call(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    call(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     getAbiEncodeSignature(
       param: string,

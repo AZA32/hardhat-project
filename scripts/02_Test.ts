@@ -1,5 +1,5 @@
 import {ethers} from "hardhat";
-import {Greeter, Greeter__factory} from "../typechain-types";
+import {Greeter, Greeter__factory,Visibility__factory} from "../typechain-types";
 
 async function main() {
     let provider = ethers.provider;
@@ -28,7 +28,18 @@ async function main() {
     let s = await contract.getAiEncodePacked("1");
     console.log("s", s);
     let call = await contract.call();
-    console.log("call", call);
+    console.log("gretter call", call);
+    console.log("contract balance %s", ethers.utils.formatEther( await provider.getBalance(contract.address)));
+
+    let visibilityFactory = (await ethers.getContractFactory('Visibility')) as Visibility__factory;
+    let visibility = await visibilityFactory.deploy(contract.address);
+    let visibilityBalance = await provider.getBalance(visibility.address);
+    console.log("visibilityBalance",ethers.utils.formatEther(visibilityBalance));
+    let visibilityCall = await visibility.call();
+    console.log("visibilityCall",visibilityCall);
+    console.log("contract balance %s", ethers.utils.formatEther( await provider.getBalance(contract.address)));
+    let visibilitydelegatecall = await visibility.delegatecall();
+    console.log("visibilitydelegatecall",visibilitydelegatecall);
 
 }
 

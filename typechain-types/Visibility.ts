@@ -4,7 +4,6 @@
 import {
   BaseContract,
   BigNumber,
-  BigNumberish,
   BytesLike,
   CallOverrides,
   ContractTransaction,
@@ -21,51 +20,18 @@ export interface VisibilityInterface extends utils.Interface {
   contractName: "Visibility";
   functions: {
     "call()": FunctionFragment;
-    "get()": FunctionFragment;
-    "getAbiEncodeSignature(string)": FunctionFragment;
-    "getAiEncodePacked(string)": FunctionFragment;
-    "getArray()": FunctionFragment;
-    "getEncode()": FunctionFragment;
-    "greet()": FunctionFragment;
-    "opAssembly(uint256,uint256)": FunctionFragment;
-    "setGreeting(string)": FunctionFragment;
+    "delegatecall()": FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: "call", values?: undefined): string;
-  encodeFunctionData(functionFragment: "get", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "getAbiEncodeSignature",
-    values: [string]
+    functionFragment: "delegatecall",
+    values?: undefined
   ): string;
-  encodeFunctionData(
-    functionFragment: "getAiEncodePacked",
-    values: [string]
-  ): string;
-  encodeFunctionData(functionFragment: "getArray", values?: undefined): string;
-  encodeFunctionData(functionFragment: "getEncode", values?: undefined): string;
-  encodeFunctionData(functionFragment: "greet", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "opAssembly",
-    values: [BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(functionFragment: "setGreeting", values: [string]): string;
 
   decodeFunctionResult(functionFragment: "call", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "get", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "getAbiEncodeSignature",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getAiEncodePacked",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "getArray", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "getEncode", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "greet", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "opAssembly", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "setGreeting",
+    functionFragment: "delegatecall",
     data: BytesLike
   ): Result;
 
@@ -100,160 +66,47 @@ export interface Visibility extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    call(overrides?: CallOverrides): Promise<[string]>;
+    call(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
-    get(overrides?: CallOverrides): Promise<[string]>;
-
-    getAbiEncodeSignature(
-      param: string,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
-    getAiEncodePacked(
-      param: string,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
-    getArray(overrides?: CallOverrides): Promise<[BigNumber[]]>;
-
-    getEncode(overrides?: CallOverrides): Promise<[string]>;
-
-    greet(overrides?: CallOverrides): Promise<[string]>;
-
-    opAssembly(
-      _a: BigNumberish,
-      _b: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
-    setGreeting(
-      _greeting: string,
+    delegatecall(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
-  call(overrides?: CallOverrides): Promise<string>;
+  call(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
-  get(overrides?: CallOverrides): Promise<string>;
-
-  getAbiEncodeSignature(
-    param: string,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
-  getAiEncodePacked(param: string, overrides?: CallOverrides): Promise<string>;
-
-  getArray(overrides?: CallOverrides): Promise<BigNumber[]>;
-
-  getEncode(overrides?: CallOverrides): Promise<string>;
-
-  greet(overrides?: CallOverrides): Promise<string>;
-
-  opAssembly(
-    _a: BigNumberish,
-    _b: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  setGreeting(
-    _greeting: string,
+  delegatecall(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    call(overrides?: CallOverrides): Promise<string>;
+    call(overrides?: CallOverrides): Promise<void>;
 
-    get(overrides?: CallOverrides): Promise<string>;
-
-    getAbiEncodeSignature(
-      param: string,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    getAiEncodePacked(
-      param: string,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    getArray(overrides?: CallOverrides): Promise<BigNumber[]>;
-
-    getEncode(overrides?: CallOverrides): Promise<string>;
-
-    greet(overrides?: CallOverrides): Promise<string>;
-
-    opAssembly(
-      _a: BigNumberish,
-      _b: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    setGreeting(_greeting: string, overrides?: CallOverrides): Promise<void>;
+    delegatecall(overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {};
 
   estimateGas: {
-    call(overrides?: CallOverrides): Promise<BigNumber>;
-
-    get(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getAbiEncodeSignature(
-      param: string,
-      overrides?: CallOverrides
+    call(
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    getAiEncodePacked(
-      param: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    getArray(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getEncode(overrides?: CallOverrides): Promise<BigNumber>;
-
-    greet(overrides?: CallOverrides): Promise<BigNumber>;
-
-    opAssembly(
-      _a: BigNumberish,
-      _b: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    setGreeting(
-      _greeting: string,
+    delegatecall(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    call(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    get(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    getAbiEncodeSignature(
-      param: string,
-      overrides?: CallOverrides
+    call(
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    getAiEncodePacked(
-      param: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    getArray(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    getEncode(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    greet(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    opAssembly(
-      _a: BigNumberish,
-      _b: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    setGreeting(
-      _greeting: string,
+    delegatecall(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

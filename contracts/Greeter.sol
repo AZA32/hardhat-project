@@ -34,9 +34,9 @@ contract Greeter {
         return abi.encodeWithSignature("setGreeting(string)", param);
     }
 
-    function call() external view returns (bytes memory){
-        //address(this).call(getAbiEncodeSignature("2"));
-        return this.getAbiEncodeSignature("2");
+    function call() external returns (bool success,bytes memory){
+        return address(this).call{gas: 100000, value:2 ether}(this.getAbiEncodeSignature("2"));
+       // return this.getAbiEncodeSignature("2");
     }
 
     function opAssembly(uint256 _a, uint256 _b) external pure returns (uint256){

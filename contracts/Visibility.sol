@@ -1,16 +1,20 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "./Greeter.sol";
-import {a} from "./Constant.sol";
 
-contract Visibility is Greeter {
+contract Visibility  {
 
-    constructor(string memory _greeting) Greeter(_greeting){
+    address gretter;
 
+    constructor( address _gretter){
+        gretter = _gretter;
     }
 
-    function get() external view returns(string memory){
-      return a;
+    function call() external {
+       gretter.call{gas: 21000, value: 21 ether}(abi.encodeWithSignature("setGreeting(string)", "how old are you"));
+    }
+
+    function delegatecall() external {
+        gretter.delegatecall{gas: 21000}(abi.encodeWithSignature("setGreeting(string)", "how old are you"));
     }
 }
